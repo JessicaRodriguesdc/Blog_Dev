@@ -8,12 +8,11 @@ const path = require("path")
 const mongoose = require("mongoose")
 const session = require("express-session")
 const flash = require("connect-flash")
-
 require("./models/Postagem")
 const Postagem = mongoose.model("postagens")
-
 require("./models/Categoria")
 const Categoria = mongoose.model("categorias") 
+const usuarios = require("./routes/usuario")
 
 //Configuracoes
      //Sessao
@@ -114,9 +113,10 @@ const Categoria = mongoose.model("categorias")
         res.send('Erro 404!')
     })
 
-   
 
-    app.use('/admin',admin)
+    app.use('/admin',admin);
+
+    app.use("/usuarios",usuarios);
 
 //Outras
 const PORT = 8082
