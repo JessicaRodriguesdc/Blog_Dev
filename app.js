@@ -131,4 +131,5 @@ const db = require("./config/db")
 const PORT = process.env.PORT || 8082
 app.listen(PORT,()=>{
     console.log("Servidor rodando!")
+    console.log(PORT)
 }) 

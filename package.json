@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/JessicaRodriguesdc/Blog_App/issues"
   },
-  "homepage": "https://github.com/JessicaRodriguesdc/Blog_App#readme"
+  "homepage": "https://github.com/JessicaRodriguesdc/Blog_App#readme",
+  "dependencies": {
+    "mongoose": "^5.9.7"
+  }
 }
