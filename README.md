@@ -1,2 +1,2 @@
 # Blog_App
-Blog simples com Node.js + Express +MongoDB
+Blog simples com Node.js, Express ,MongoDB
