@@ -138,10 +138,11 @@ router.post("/categorias/deletar",eAdmin, (req,res)=>{
     })
 })
 
+//Postagem
 
 router.get('/postagens',eAdmin,(req,res)=>{
     Postagem.find().populate("categoria").sort({data:"desc"}).then((postagens)=>{
-        res.render("admin/postagens",{postagens: postagens})
+        res.render("admin/postagem/postagens",{postagens: postagens})
     }).catch((err)=>{
         req.flash("error_msg","Erro ao listar as postagens!")
         res.redirect("/admin")
@@ -150,7 +151,7 @@ router.get('/postagens',eAdmin,(req,res)=>{
 
 router.get('/postagens/add',eAdmin,(req,res)=>{
     Categoria.find().then((categorias)=>{
-        res.render("admin/addpostagem",{categorias:categorias})
+        res.render("admin/postagem/addpostagem",{categorias:categorias})
     }).catch((err)=>{
         req.flash("error_msg","Houve um erro ao carregar o formulario")
         req.redirect("/admin")
@@ -164,7 +165,7 @@ router.post("/postagens/nova",eAdmin,(req,res)=>{
         erros.push({texto: "Categoria invalida, registre uma categoria"})
     }
     if(erros.length > 0){
-        res.render("admin/addpostagem", {erros: erros})
+        res.render("admin/postagem/addpostagem", {erros: erros})
     }else{
         const novaPostagem = {
             titulo: req.body.titulo,
@@ -176,10 +177,10 @@ router.post("/postagens/nova",eAdmin,(req,res)=>{
         }
         new Postagem(novaPostagem).save().then(()=>{
             req.flash("success_msg", "Postagem criada com sucesso!")
-            res.redirect("/admin/postagens")
+            res.redirect("/admin/postagem/postagens")
         }).catch((err)=>{
             req.flash("error_msg", "Erro ao criar a postagem!",err)
-            res.redirect("/admin/postagens")
+            res.redirect("/admin/postagem/postagens")
         })
     }
 })
