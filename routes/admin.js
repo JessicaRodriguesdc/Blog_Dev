@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 require("../models/Categoria")
 const Categoria = mongoose.model("categorias")
 require("../models/Postagem")
-const Postagem = mongoose.model("postagens") 
+const Postagem = mongoose.model("postagens")
+require("../models/Usuario")
+const Usuario = mongoose.model("usuarios") 
 const {eAdmin}= require("../helpers/eAdmin")
 
 
@@ -239,6 +241,18 @@ router.get("/postagens/deletar/:id",eAdmin,(req,res)=>{
         req.flash("error_msg","Erro ao deletada a postagem!")
         res.redirect("/admin/postagens")
     })
+})
+
+
+
+router.get('/usuarios',eAdmin,(req,res)=>{
+    //res.send("Página de categorias")
+    Usuario.find().sort({date:'desc'}).then((usuarios)=>{
+        res.render("admin/usuario/usuarios",{usuarios: usuarios})
+    }).catch((err)=>{
+        req.flash("error_msg","Houve um erro ao listar os usuarios!")
+        res.redirect("/admin")
+    })  
 })
 
 module.exports = router
