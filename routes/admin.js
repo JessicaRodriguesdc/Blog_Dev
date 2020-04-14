@@ -17,10 +17,11 @@ router.get('/posts',eAdmin,(req,res)=>{
     res.send("Página de posts")
 })
 
+//categoria
 router.get('/categorias',eAdmin,(req,res)=>{
     //res.send("Página de categorias")
     Categoria.find().sort({date:'desc'}).then((categorias)=>{
-        res.render("admin/categorias",{categorias: categorias})
+        res.render("admin/categoria/categorias",{categorias: categorias})
     }).catch((err)=>{
         req.flash("error_msg","Houve um erro ao listar as categorias!")
         res.redirect("/admin")
@@ -28,7 +29,7 @@ router.get('/categorias',eAdmin,(req,res)=>{
 })
 
 router.get('/categorias/add',eAdmin,(req,res)=>{
-    res.render("admin/addcategorias")
+    res.render("admin/categoria/addcategorias")
 })
 
 router.post("/categorias/nova",eAdmin,(req,res)=>{
@@ -49,7 +50,7 @@ router.post("/categorias/nova",eAdmin,(req,res)=>{
     }
 
     if(erros.length > 0){
-        res.render("admin/addcategorias",{erros: erros})
+        res.render("admin/categoria/addcategorias",{erros: erros})
     }else{
         //Criando categoria
         const novaCategoria = {
@@ -73,7 +74,7 @@ router.post("/categorias/nova",eAdmin,(req,res)=>{
 router.get("/categorias/edit/:id",eAdmin,(req,res)=>{
     //res.send("Página de edição de categoria")
     Categoria.findOne({_id:req.params.id}).then((categoria)=>{
-        res.render("admin/editcategorias",{categoria: categoria})
+        res.render("admin/categoria/editcategorias",{categoria: categoria})
     }).catch((err)=>{
         req.flash("error_msg","Esta categoria não existe!")
         res.redirect("/admin/categorias")
@@ -102,7 +103,7 @@ router.post("/categorias/edit",eAdmin,(req,res)=>{
     
         if (erros.length > 0) {
             Categoria.findOne({ _id: req.body.id }).then((categoria) => {
-                res.render("admin/editcategoria", { categoria: categoria, erros: erros });
+                res.render("admin/categoria/editcategoria", { categoria: categoria, erros: erros });
             }).catch((err) => {
                 req.flash("error_msg", "Categoria não encontrada!");
                 res.redirect("/admin/categorias");
@@ -177,10 +178,10 @@ router.post("/postagens/nova",eAdmin,(req,res)=>{
         }
         new Postagem(novaPostagem).save().then(()=>{
             req.flash("success_msg", "Postagem criada com sucesso!")
-            res.redirect("/admin/postagem/postagens")
+            res.redirect("/admin/postagens")
         }).catch((err)=>{
             req.flash("error_msg", "Erro ao criar a postagem!",err)
-            res.redirect("/admin/postagem/postagens")
+            res.redirect("/admin/postagens")
         })
     }
 })
@@ -191,7 +192,7 @@ router.get("/postagens/edit/:id",eAdmin,(req,res)=>{
 
         Categoria.find().then((categorias)=>{
 
-            res.render("admin/editpostagens",{categorias: categorias , postagem: postagem})
+            res.render("admin/postagem/editpostagens",{categorias: categorias , postagem: postagem})
 
         }).catch((err)=>{
             req.flash("error_msg","Erro ao listar as categorias")
