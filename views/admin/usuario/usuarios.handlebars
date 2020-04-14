@@ -1,0 +1,21 @@
+<h2>Lista de Usuarios: </h2>
+<hr>
+
+<a href="#">
+    <button class="btn btn-success">Nova usuario</button>
+</a>
+
+{{#each usuarios}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <p>Nome: {{nome}}</p>
+            <small>E-Mail: {{email}}</small><br>
+            <small>Tipo: {{eAdmin}}</small><br>
+            <a href="#{{_id}}"><button class="btn btn-success mt-3">Editar usuario</button></a>
+            <a href="#{{_id}}"><button class="btn btn-danger mt-3">Deletar usuario</button></a>
+        </div>
+    </div>
+
+{{else}}
+    <p>Nenhuma usuario registrada</p>
+{{/each}}
