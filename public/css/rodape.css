@@ -1,6 +1,9 @@
+html, body {
+    height: 100%;
+    }
 
 .rodape {
-    position: absolute;
+    position: fixed;
     bottom:0;
     width:100%;
 }
