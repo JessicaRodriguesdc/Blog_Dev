@@ -1,6 +1,6 @@
 <h2>Lista de Usuarios: </h2>
 <hr>
-<a href="#">
+<a href="/usuarios/registro">
     <button class="btn btn-success">Nova usuario</button>
 </a>
 
@@ -9,9 +9,20 @@
         <div class="card-body">
             <p>Nome: {{nome}}</p>
             <small>E-Mail: {{email}}</small><br>
-            <small>Tipo: {{eAdmin}}</small><br>
-            <a href="#{{_id}}"><button class="btn btn-success mt-3">Editar usuario</button></a>
-            <a href="#{{_id}}"><button class="btn btn-danger mt-3">Deletar usuario</button></a>
+            {{#if eAdmin}}
+                <small>Tipo: Adm</small><br>
+            {{else}}
+                <small>Tipo: Normal</small><br>
+            {{/if}}       
+            <a href="/admin/usuarios/edit/{{_id}}"><button class="btn btn-success mt-4">Editar usuario</button></a>
+
+            <a href="/admin/usuarios/edit-senha/{{_id}}"><button class="btn btn-success mt-4">Editar senha</button></a>
+
+            <form action="/admin/usuarios/deletar" method="post">
+                <input type="hidden" name="id" value="{{_id}}">
+                <button type="submit" class="btn btn-danger mt-2">Deletar usuario</button>
+            </form>
+        
         </div>
     </div>
 

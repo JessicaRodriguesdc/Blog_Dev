@@ -91,4 +91,8 @@ router.get("/logout",(req,res)=>{
     res.redirect("/")
 })
 
+router.get("/fale-conosco",(req,res)=>{
+    res.render("usuarios/fale-conosco")
+})
+
 module.exports = router
