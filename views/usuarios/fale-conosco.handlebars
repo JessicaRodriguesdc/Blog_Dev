@@ -1,0 +1,19 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+
+<h3>Fale Conosco:</h3>
+<div class="card">
+    <div class="card-body">
+        <form action="https://formspree.io/mlepjyvn" method="POST">
+            <label for="email">Seu E-mail:</label>
+            <input type="text" name="email" class="form-control" required>
+            <label for="message">Sua message:</label>
+            <textarea name="message" class="form-control"></textarea>
+            
+            <input type="submit" class="btn btn-success mt-4" value="Enviar"/>
+        </form>
+    </div>
+</div>
