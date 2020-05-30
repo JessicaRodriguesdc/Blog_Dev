@@ -1,2 +1,2 @@
 # Blog_Dev
-Blog simples utilizando Node.js, Express ,MongoDB, handlebars.
+Blog para "Programadores de programadores" utilizando Node.js + Express +MongoDB.
