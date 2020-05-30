@@ -1,0 +1,21 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+
+<h3>Editar Senha: </h3>
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/usuario/edit-senha" method="POST">
+            <input type="hidden" name="id" value="{{usuario._id}}">
+            <label for="nome">Usuario {{usuario.nome}}</label>
+
+            <label for="senha">Senha: </label>
+                <input type="password" id="senha" name="senha" placeholder="Senha do Usuario" class="form-control">
+            
+            <br>        
+            <br>
+            <button type="submit" class="btn btn-success">Editar Senha </button>
+        </form>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const bcryptjs = require("bcryptjs")
 require("../models/Categoria")
 const Categoria = mongoose.model("categorias")
 require("../models/Postagem")
@@ -253,6 +254,88 @@ router.get('/usuarios',eAdmin,(req,res)=>{
         req.flash("error_msg","Houve um erro ao listar os usuarios!")
         res.redirect("/admin")
     })  
+})
+
+
+router.get("/usuarios/edit/:id",eAdmin,(req,res)=>{
+    
+    Usuario.findOne({_id:req.params.id}).then((usuario)=>{
+        res.render("admin/usuario/editusuarios",{usuario: usuario})
+    }).catch((err)=>{
+        req.flash("error_msg","Esta usuario não existe!")
+        res.redirect("/admin/usuarios")
+    })
+})
+
+
+router.post("/usuario/edit",eAdmin,(req,res)=>{
+    Usuario.findOne({_id: req.body.id}).then((usuario)=>{
+
+        usuario.nome = req.body.nome,
+        usuario.email = req.body.email,
+        usuario.eAdmin = req.body.eAdmin,
+        
+        
+        usuario.save().then(()=>{
+            req.flash("success_msg","Usuario editada com sucesso!")
+            res.redirect("/admin/usuarios")
+        }).catch((err)=>{
+            req.flash("error_msg","Error interno ao salvar a edição!")
+            res.redirect("/admin/usuarios")
+        })
+    }).catch((err)=>{
+        req.flash("error_msg","Error ao salvar a edição!")
+        res.redirect("/admin/usuarios")
+    })
+})
+
+router.get("/usuarios/edit-senha/:id",eAdmin,(req,res)=>{
+    
+    Usuario.findOne({_id:req.params.id}).then((usuario)=>{
+        res.render("admin/usuario/editusuariosenha",{usuario: usuario})
+    }).catch((err)=>{
+        req.flash("error_msg","Esta usuario não existe!")
+        res.redirect("/admin/usuarios")
+    })
+})
+
+router.post("/usuario/edit-senha",eAdmin,(req,res)=>{
+    Usuario.findOne({_id: req.body.id}).then((usuario)=>{
+
+         usuario.senha = req.body.senha,
+    
+            bcryptjs.genSalt(10,(erro,salt)=>{
+                bcryptjs.hash(usuario.senha, salt,(erro,hash)=>{
+                    if(erro){
+                        req.flash("error_msg","Erro durate o salvamento do usuário!")
+                        res.redirect("/")
+                    }
+                    usuario.senha = hash
+
+                    usuario.save().then(()=>{                           
+                        req.flash("success_msg","Senha editada com sucesso!")
+                        res.redirect("/admin/usuarios")
+                    }).catch((err)=>{
+                        req.flash("error_msg","Error interno ao salvar a edição!")
+                        res.redirect("/admin/usuarios")
+                    })
+                })
+            })
+        })
+        .catch((err)=>{
+        req.flash("error_msg","Error ao salvar a edição!")
+        res.redirect("/admin/usuarios")
+    })
+})
+
+router.post("/usuarios/deletar",eAdmin, (req,res)=>{
+    Usuario.remove({_id: req.body.id}).then(()=>{
+        req.flash("success_msg","Usuario deletada com sucesso!")
+        res.redirect("/admin/usuarios")
+    }).catch((err)=>{
+        req.flash("error_msg","Erro ao deletar o usuario!")
+        res.redirect("/admin/usuarios")
+    })
 })
 
 module.exports = router
