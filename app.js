@@ -42,6 +42,7 @@ const db = require("./config/db")
     // Handlebars
      app.engine("handlebars", handlebars({ defaultLayout: "main" }));
      app.set("view engine", "handlebars");
+     app.set('views', __dirname + '/views');
     // Mongoose
     mongoose.Promise = global.Promise;
     //mongoose.connect("mongodb://localhost/blogapp").then(()=>{
