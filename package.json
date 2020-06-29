@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/JessicaRodriguesdc/Blog_App#readme",
   "dependencies": {
+    "bootstrap": "^3.4.1",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.3",
     "favicon": "^0.0.2",
     "mongoose": "^5.9.7"
   },
